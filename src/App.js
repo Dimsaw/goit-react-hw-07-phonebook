@@ -1,5 +1,5 @@
 import ContactsPage from './componets/ContactsPage';
-// import ContactForm from './componets/ContactForm';
+import ContactForm from './componets/ContactForm';
 // import Filter from './componets/Filter';
 import Container from './componets/Container';
 
@@ -10,7 +10,7 @@ export default function App() {
     <>
       <Container>
         <h1 className={s.text}>Phonebook</h1>
-        {/* <ContactForm /> */}
+        <ContactForm />
 
         <div>
           <h3 className={s.contacts}>Contacts</h3>
