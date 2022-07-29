@@ -1,41 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { contactDefault } from '../data/data';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const initialState = {
-  items: contactDefault,
-  filter: '',
-};
+export const contactsApi = createApi({
+  reducerPath: 'contactsApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://62e16d21fa99731d75d658d2.mockapi.io/api/v1/',
+  }),
 
-const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState,
-
-  reducers: {
-    addContact(state, { payload }) {
-      state.items.push(payload);
-    },
-    deleteContact(state, { payload }) {
-      state.items = state.items.filter(({ id }) => id !== payload);
-    },
-    filterContact(state, { payload }) {
-      state.filter = payload;
-    },
-  },
+  endpoints: builder => ({
+    fetchContacts: builder.query({
+      query: () => '/contacts',
+    }),
+  }),
 });
 
-const persistConfig = {
-  key: 'contacts',
-  storage,
-  blacklist: ['filter'],
-};
-
-export const persisteContactReducer = persistReducer(
-  persistConfig,
-  contactsSlice.reducer
-);
-
-export const { addContact, deleteContact, filterContact } =
-  contactsSlice.actions;
-export default contactsSlice.reducer;
+export const { useFetchContactsQuery } = contactsApi;
