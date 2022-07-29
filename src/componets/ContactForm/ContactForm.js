@@ -1,10 +1,11 @@
-import React from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-import s from './ContactForm.module.css';
-// import { getContactsItem } from '../../redux/contact_selector';
-// import { addContact } from '../../redux/contact_slice';
+import React, { useState } from 'react';
+import {
+  useFetchContactsQuery,
+  useCreateContactMutation,
+} from '../../redux/contact_slice';
 
-// import shortid from 'shortid';
+import s from './ContactForm.module.css';
+
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
   width: '380px',
@@ -15,53 +16,46 @@ Notiflix.Notify.init({
   },
 });
 
-export default function ContactForm({ onSubmit }) {
-  //   const [name, setName] = useState('');
-  //   const [number, setNumber] = useState('');
-  //   const contacts = useSelector(getContactsItem);
-  //   const dispatch = useDispatch();
+export default function ContactForm() {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const { data } = useFetchContactsQuery();
+  const [addContact] = useCreateContactMutation();
 
   const handleChange = e => {
-    console.log('work');
-    // const { name, value } = e.currentTarget;
-    // switch (name) {
-    //   case 'name':
-    //     setName(value);
-    //     break;
+    const { name, value } = e.currentTarget;
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
 
-    //   case 'number':
-    //     setNumber(value);
-    //     break;
+      case 'number':
+        setNumber(value);
+        break;
 
-    //   default:
-    //     return;
-    // }
+      default:
+        return;
+    }
   };
 
   const handelSubmit = e => {
     e.preventDefault();
-    // const newContact = {
-    //   id: shortid.generate(),
-    //   name,
-    //   number,
-    // };
-    // if (
-    //   contacts.find(
-    //     newContact => newContact.name.toLowerCase() === name.toLowerCase()
-    //   )
-    // ) {
-    //   return Notiflix.Notify.failure(`${name} is alredy in contacts`);
-    // } else {
-    //   dispatch(addContact(newContact));
-    // }
 
-    // reset();
+    if (
+      data.some(contact => contact.name.toLowerCase() === name.toLowerCase())
+    ) {
+      return Notiflix.Notify.failure(`${name} is alredy in contacts`);
+    } else {
+      addContact({
+        name: name,
+        phone: number,
+      });
+    }
+
+    setName('');
+    setNumber('');
   };
-
-  //   const reset = () => {
-  //     setName('');
-  //     setNumber('');
-  //   };
 
   return (
     <form className={s.form} onSubmit={handelSubmit}>
@@ -71,7 +65,7 @@ export default function ContactForm({ onSubmit }) {
           className={s.input}
           type="text"
           name="name"
-          //   value={name}
+          value={name}
           onChange={handleChange}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -84,7 +78,7 @@ export default function ContactForm({ onSubmit }) {
           className={s.input}
           type="tel"
           name="number"
-          //   value={number}
+          value={number}
           onChange={handleChange}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
