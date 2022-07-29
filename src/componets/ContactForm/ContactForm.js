@@ -52,6 +52,7 @@ export default function ContactForm() {
         phone: number,
       });
     }
+    Notiflix.Notify.failure(`Add contact ${name}`);
 
     setName('');
     setNumber('');
