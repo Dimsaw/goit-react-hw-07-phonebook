@@ -1,4 +1,4 @@
-import ContactsList from './componets/ContactsList';
+import ContactsPage from './componets/ContactsPage';
 // import ContactForm from './componets/ContactForm';
 // import Filter from './componets/Filter';
 import Container from './componets/Container';
@@ -16,7 +16,7 @@ export default function App() {
           <h3 className={s.contacts}>Contacts</h3>
           {/* <Filter /> */}
 
-          <ContactsList />
+          <ContactsPage />
         </div>
       </Container>
     </>
