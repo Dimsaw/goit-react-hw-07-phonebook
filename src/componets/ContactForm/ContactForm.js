@@ -10,10 +10,6 @@ import Notiflix from 'notiflix';
 Notiflix.Notify.init({
   width: '380px',
   position: 'center-top',
-  failure: {
-    background: '#00bfff',
-    textColor: '#fff',
-  },
 });
 
 export default function ContactForm() {
@@ -52,7 +48,7 @@ export default function ContactForm() {
         phone: number,
       });
     }
-    Notiflix.Notify.failure(`Add contact ${name}`);
+    Notiflix.Notify.success(`Add contact ${name}`);
 
     setName('');
     setNumber('');

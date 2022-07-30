@@ -2,16 +2,8 @@ import { useDeleteContactMutation } from '../../redux/contact_slice';
 import s from './ContatcItem.module.css';
 import PropTypes from 'prop-types';
 import Notiflix from 'notiflix';
-Notiflix.Notify.init({
-  width: '380px',
-  position: 'center-top',
-  failure: {
-    background: '#00bfff',
-    textColor: '#fff',
-  },
-});
 
-const ContactItem = ({ id, name, number }) => {
+const ContactItem = ({ ids, name, number }) => {
   const [deleteContact, { isLoading: isDeleting, isSuccess }] =
     useDeleteContactMutation();
 
@@ -26,7 +18,7 @@ const ContactItem = ({ id, name, number }) => {
         type="submit"
         name={name}
         disabled={isDeleting}
-        onClick={() => deleteContact(id)}
+        onClick={() => deleteContact(ids)}
       >
         <span className={s.btn__name}>
           {isDeleting ? 'Deleting...' : 'Delete'}
@@ -39,7 +31,7 @@ const ContactItem = ({ id, name, number }) => {
 ContactItem.propTypes = {
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
 };
 
 export default ContactItem;

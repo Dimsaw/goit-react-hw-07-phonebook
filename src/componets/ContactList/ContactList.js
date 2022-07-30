@@ -10,16 +10,20 @@ const ContactList = ({ filter }) => {
   const filteredContact = data?.filter(contact =>
     contact.name.toLowerCase().includes(filter)
   );
+
   if (filteredContact) {
     return (
-      <ul>
-        {isFetching && <p>Loading....</p>}
-        {filteredContact.map(({ id, name, number }) => (
-          <li key={id} className={s.item}>
-            <ContactItem id={id} name={name} number={number} />
-          </li>
-        ))}
-      </ul>
+      <>
+        {filteredContact.length === 0 && <p>The list is empty</p>}
+        <ul>
+          {isFetching && <p>Loading....</p>}
+          {filteredContact.map(({ id, name, number }) => (
+            <li key={id} className={s.item}>
+              <ContactItem ids={id} name={name} number={number} />
+            </li>
+          ))}
+        </ul>
+      </>
     );
   }
 };
