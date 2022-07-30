@@ -8,7 +8,11 @@ const ContactList = ({ contacts }) => {
     <ul>
       {contacts.map(contact => (
         <li key={contact.id} className={s.item}>
-          <ContactItem name={contact.name} number={contact.number} />
+          <ContactItem
+            id={contact.id}
+            name={contact.name}
+            number={contact.number}
+          />
         </li>
       ))}
     </ul>
