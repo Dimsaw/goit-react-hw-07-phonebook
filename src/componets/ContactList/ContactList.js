@@ -7,15 +7,13 @@ import ContactItem from 'componets/ContactItem';
 const ContactList = ({ filter }) => {
   const { data, isFetching } = useFetchContactsQuery();
 
-  const filteredContact = data?.filter(
-    contact =>
-      contact.name.toLowerCase().includes(filter) ??
-      contact.number.toLowerCase().includes(filter)
+  const filteredContact = data?.filter(contact =>
+    contact.name.toLowerCase().includes(filter)
   );
   if (filteredContact) {
     return (
       <ul>
-        {isFetching && <p>Loading!!!!!</p>}
+        {isFetching && <p>Loading....</p>}
         {filteredContact.map(({ id, name, number }) => (
           <li key={id} className={s.item}>
             <ContactItem id={id} name={name} number={number} />

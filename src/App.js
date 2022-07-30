@@ -8,8 +8,8 @@ import s from './App.module.css';
 
 export default function App() {
   const [filter, setFilter] = useState('');
-  const handleChange = () => {
-    setFilter();
+  const handleChange = e => {
+    setFilter(e);
   };
   return (
     <>
