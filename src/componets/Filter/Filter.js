@@ -1,24 +1,21 @@
-// import React from 'react';
+import React from 'react';
 
-// import s from './Filter.module.css';
+import s from './Filter.module.css';
 
-// import { useDispatch } from 'react-redux';
-// import { filterContact } from '../../redux/contact_slice';
+const Filter = ({ filter, handelChange }) => {
+  return (
+    <>
+      <label className={s.label}>
+        <span className={s.text}>Find contacts by name</span>
+        <input
+          className={s.input}
+          type="text"
+          value={filter}
+          onChange={e => handelChange(e.target.value.trim())}
+        />
+      </label>
+    </>
+  );
+};
 
-// const Filter = () => {
-//   const dispatch = useDispatch();
-//   return (
-//     <>
-//       <label className={s.label}>
-//         <span className={s.text}>Find contacts by name</span>
-//         <input
-//           className={s.input}
-//           type="text"
-//           onChange={e => dispatch(filterContact(e.target.value.trim()))}
-//         />
-//       </label>
-//     </>
-//   );
-// };
-
-// export default Filter;
+export default Filter;

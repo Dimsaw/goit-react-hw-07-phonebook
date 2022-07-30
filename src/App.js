@@ -1,11 +1,16 @@
-import ContactsPage from './componets/ContactsPage';
+import ContactList from './componets/ContactList';
 import ContactForm from './componets/ContactForm';
-// import Filter from './componets/Filter';
+import Filter from './componets/Filter';
 import Container from './componets/Container';
+import { useState } from 'react';
 
 import s from './App.module.css';
 
 export default function App() {
+  const [filter, setFilter] = useState('');
+  const handleChange = () => {
+    setFilter();
+  };
   return (
     <>
       <Container>
@@ -14,9 +19,9 @@ export default function App() {
 
         <div>
           <h3 className={s.contacts}>Contacts</h3>
-          {/* <Filter /> */}
+          <Filter filter={filter} handleChange={handleChange} />
 
-          <ContactsPage />
+          <ContactList filter={filter} />
         </div>
       </Container>
     </>
